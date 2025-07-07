@@ -184,7 +184,7 @@ urlShortner/
 
 ### Common Issues
 
-**1. Database Connection Error**
+<!-- **1. Database Connection Error**
 ```bash
 # Ensure SQLite file exists
 touch database/database.sqlite
@@ -237,4 +237,4 @@ php artisan tinker
 
 ## 📄 License
 
-This project is open-sourced software licensed under the [MIT license](LICENSE).
+This project is open-sourced software licensed under the [MIT license](LICENSE). -->
