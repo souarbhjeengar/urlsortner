@@ -54,7 +54,7 @@ export default function ShortUrlsIndex({ shortUrls, filters, userRole }) {
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         <div className="p-6">
                             {/* Filters */}
-                            <form onSubmit={handleSearch} className="mb-6 bg-gray-50 p-4 rounded-lg">
+                            {/* <form onSubmit={handleSearch} className="mb-6 bg-gray-50 p-4 rounded-lg">
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div>
                                         <input
@@ -93,7 +93,7 @@ export default function ShortUrlsIndex({ shortUrls, filters, userRole }) {
                                         </button>
                                     </div>
                                 </div>
-                            </form>
+                            </form> */}
 
                             {/* Short URLs Table */}
                             <div className="overflow-x-auto">

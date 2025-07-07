@@ -46,7 +46,7 @@ export default function CompaniesIndex({ companies, filters }) {
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         <div className="p-6">
                             {/* Filters */}
-                            <form onSubmit={handleSearch} className="mb-6 bg-gray-50 p-4 rounded-lg">
+                            {/* <form onSubmit={handleSearch} className="mb-6 bg-gray-50 p-4 rounded-lg">
                                 <div className="flex gap-4">
                                     <div className="flex-1">
                                         <input
@@ -73,7 +73,7 @@ export default function CompaniesIndex({ companies, filters }) {
                                         </button>
                                     </div>
                                 </div>
-                            </form>
+                            </form> */}
 
                             {/* Companies Table */}
                             <div className="overflow-x-auto">
@@ -119,7 +119,7 @@ export default function CompaniesIndex({ companies, filters }) {
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                                     <div className="flex space-x-2">
-                                                        <Link
+                                                        {/* <Link
                                                             href={route('admin.companies.show', company.id)}
                                                             className="text-blue-600 hover:text-blue-900"
                                                         >
@@ -130,7 +130,7 @@ export default function CompaniesIndex({ companies, filters }) {
                                                             className="text-indigo-600 hover:text-indigo-900"
                                                         >
                                                             Edit
-                                                        </Link>
+                                                        </Link> */}
                                                         <button
                                                             onClick={() => deleteCompany(company)}
                                                             className="text-red-600 hover:text-red-900"
