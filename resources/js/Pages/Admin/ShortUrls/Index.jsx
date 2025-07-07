@@ -201,8 +201,8 @@ export default function ShortUrlsIndex({ shortUrls, filters, userRole }) {
                                             Showing {shortUrls.from} to {shortUrls.to} of {shortUrls.total} results
                                         </div>
                                         <div className="flex space-x-1">
-                                            {/* {shortUrls.links.map((link, index) => (
-                                                <Link
+                                            {shortUrls.links.map((link, index) => (
+                                                 <a
                                                     key={index}
                                                     href={link.url}
                                                     className={`px-3 py-2 text-sm ${
@@ -212,7 +212,7 @@ export default function ShortUrlsIndex({ shortUrls, filters, userRole }) {
                                                     } border border-gray-300 rounded-md`}
                                                     dangerouslySetInnerHTML={{ __html: link.label }}
                                                 />
-                                            ))} */}
+                                            ))}
                                         </div>
                                     </div>
                                 </div>

@@ -215,12 +215,13 @@ export default function UsersIndex({ users, filters, roles, companies }) {
                                         </div>
                                         <div className="flex space-x-1">
                                             {users.links.map((link, index) => (
-                                                // <>
-                                                //     {link.url}
-                                                // </>
                                                 <a
                                                     key={index}
                                                     href={link.url}
+                                                    className={`px-3 py-2 text-sm ${link.active
+                                                            ? 'bg-blue-600 text-white'
+                                                            : 'bg-white text-gray-700 hover:bg-gray-50'
+                                                        } border border-gray-300 rounded-md`}
                                                     dangerouslySetInnerHTML={{ __html: link.label }}
                                                 />
                                             ))}

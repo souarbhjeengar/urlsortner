@@ -154,7 +154,7 @@ export default function CompaniesIndex({ companies, filters }) {
                                         </div>
                                         <div className="flex space-x-1">
                                             {companies.links.map((link, index) => (
-                                                <Link
+                                                <a
                                                     key={index}
                                                     href={link.url}
                                                     className={`px-3 py-2 text-sm ${
