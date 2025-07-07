@@ -1,61 +1,240 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# URL Shortener with Role-Based Access Control
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A comprehensive URL shortening service built with Laravel and React (Inertia.js) featuring advanced role-based access control, company-based filtering, and user management.
 
-## About Laravel
+## 🚀 Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### User Management
+- **SuperAdmin**: Full system access, can manage users and companies (cannot create URLs)
+- **Admin**: Company-scoped access, can manage users and URLs within their company
+- **Member**: Can create and manage their own URLs only
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### URL Shortening
+- Create custom or auto-generated short codes
+- Click tracking and analytics
+- URL expiration dates
+- Active/inactive status management
+- Company-based access control
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Security
+- Role-based permissions using Spatie Laravel Permission
+- Company-based data isolation
+- Authenticated URL access only
+- Comprehensive authorization checks
 
-## Learning Laravel
+## 📋 Prerequisites
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Before setting up the project, ensure you have the following installed:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **PHP** >= 8.2
+- **Composer** >= 2.0
+- **Node.js** >= 18.0
+- **NPM** or **Yarn**
+- **SQLite** (default) or **MySQL/PostgreSQL**
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🛠️ Local Setup Instructions
 
-## Laravel Sponsors
+### 1. Clone the Repository
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+git clone <repository-url>
+cd urlShortner
+```
 
-### Premium Partners
+### 2. Install PHP Dependencies
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```bash
+composer install
+```
 
-## Contributing
+### 3. Install JavaScript Dependencies
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+npm install
+```
 
-## Code of Conduct
+### 4. Environment Configuration
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+# Copy the environment file
+cp .env.example .env
 
-## Security Vulnerabilities
+# Generate application key
+php artisan key:generate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 5. Database Setup
 
-## License
+The project is configured to use SQLite by default. The database file will be created automatically.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+# Run migrations
+php artisan migrate
+
+# Seed the database with roles, permissions, and test data
+php artisan db:seed
+```
+
+### 6. Start Development Servers
+
+You need to run both the Laravel backend and Vite frontend servers:
+
+**Terminal 1 - Laravel Server:**
+```bash
+php artisan serve
+```
+
+**Terminal 2 - Vite Development Server:**
+```bash
+npm run dev
+```
+
+The application will be available at: `http://127.0.0.1:8000`
+
+## 👥 Test Accounts
+
+After running the seeders, you'll have access to these test accounts:
+
+### SuperAdmin
+- **Email**: `superadmin@example.com`
+- **Password**: `password`
+- **Access**: Full system access, cannot create URLs
+
+### Company: Tech Corp
+- **Admin**: `admin@techcorp.com` / `password`
+- **Member**: `member@techcorp.com` / `password`
+
+### Company: Marketing Inc
+- **Admin**: `admin@marketing.com` / `password`
+- **Member**: `member@marketing.com` / `password`
+
+## 🔐 Access Control Rules
+
+### URL Management Access
+- **SuperAdmin**: ❌ Cannot access URL management
+- **Admin**: ✅ Can see/manage URLs from their company users
+- **Member**: ✅ Can see/manage only their own URLs
+
+### URL Redirect Access
+- **SuperAdmin**: ✅ Can access all URLs
+- **Admin**: ✅ Can access URLs from their company
+- **Member**: ✅ Can access only their own URLs
+
+## 🧪 Testing the System
+
+### 1. Login as Different Users
+Test the role-based access by logging in with different accounts and observing:
+- Navigation menu differences
+- Available features
+- Data visibility
+
+### 2. Test URL Creation
+- Login as `member@techcorp.com`
+- Create a short URL
+- Note the generated short code
+
+### 3. Test Access Control
+- Login as `member@marketing.com`
+- Try to access the URL created by Tech Corp member
+- Should be denied access
+
+### 4. Test Admin Scope
+- Login as `admin@techcorp.com`
+- Should see URLs from both Tech Corp users
+- Should not see Marketing Inc URLs
+
+## 📁 Project Structure
+
+```
+urlShortner/
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── Admin/           # Admin panel controllers
+│   │   └── RedirectController.php
+│   ├── Models/              # Eloquent models
+│   └── Http/Middleware/     # Custom middleware
+├── database/
+│   ├── migrations/          # Database migrations
+│   └── seeders/            # Database seeders
+├── resources/
+│   └── js/
+│       ├── Pages/          # React components
+│       └── Layouts/        # Layout components
+└── routes/                 # Application routes
+```
+
+## 🔧 Key Components
+
+### Models
+- **User**: Enhanced with roles and company relationships
+- **Company**: Manages company data and user associations
+- **ShortUrl**: Handles URL shortening with access control
+
+### Controllers
+- **UserController**: User CRUD with role management
+- **ShortUrlController**: URL management with company filtering
+- **CompanyController**: Company management
+- **RedirectController**: Handles URL redirects with authorization
+
+### Middleware
+- **CheckAdminAccess**: Validates admin panel access
+- **Auth**: Ensures authenticated access to URLs
+
+## 🚨 Troubleshooting
+
+### Common Issues
+
+**1. Database Connection Error**
+```bash
+# Ensure SQLite file exists
+touch database/database.sqlite
+php artisan migrate
+```
+
+**2. Permission Denied Errors**
+```bash
+# Clear cache and config
+php artisan config:clear
+php artisan cache:clear
+```
+
+**3. Vite Build Issues**
+```bash
+# Clear node modules and reinstall
+rm -rf node_modules package-lock.json
+npm install
+```
+
+**4. Role/Permission Issues**
+```bash
+# Re-run seeders
+php artisan migrate:fresh --seed
+```
+
+## 📝 Additional Commands
+
+```bash
+# Create a new user with specific role
+php artisan tinker
+>>> $user = User::create(['name' => 'Test', 'email' => 'test@test.com', 'password' => Hash::make('password')]);
+>>> $user->assignRole('admin');
+
+# Check user permissions
+>>> $user->hasRole('admin');
+>>> $user->can('create_users');
+
+# View all short URLs
+>>> ShortUrl::with('user')->get();
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## 📄 License
+
+This project is open-sourced software licensed under the [MIT license](LICENSE).

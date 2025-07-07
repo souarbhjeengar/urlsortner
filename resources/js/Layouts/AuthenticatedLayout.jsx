@@ -30,6 +30,39 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
+
+                                {/* Admin Navigation */}
+                                {user.permissions && user.permissions.includes('view_admin_panel') && (
+                                    <>
+                                        <NavLink
+                                            href={route('admin.dashboard')}
+                                            active={route().current('admin.*')}
+                                        >
+                                            Admin
+                                        </NavLink>
+                                        <NavLink
+                                            href={route('admin.users.index')}
+                                            active={route().current('admin.users.*')}
+                                        >
+                                            Users
+                                        </NavLink>
+                                        <NavLink
+                                            href={route('admin.companies.index')}
+                                            active={route().current('admin.companies.*')}
+                                        >
+                                            Companies
+                                        </NavLink>
+                                        {/* Only show Short URLs for admin and user roles, not superAdmin */}
+                                        {user.roles && !user.roles.some(role => role.name === 'superAdmin') && (
+                                            <NavLink
+                                                href={route('admin.short-urls.index')}
+                                                active={route().current('admin.short-urls.*')}
+                                            >
+                                                Short URLs
+                                            </NavLink>
+                                        )}
+                                    </>
+                                )}
                             </div>
                         </div>
 

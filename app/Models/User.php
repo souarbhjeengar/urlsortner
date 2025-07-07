@@ -11,7 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -22,6 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'company_id',
+        'is_active',
     ];
 
     /**
@@ -44,6 +46,47 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_active' => 'boolean',
         ];
+    }
+
+    /**
+     * Get the company that the user belongs to.
+     */
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    /**
+     * Check if user is a super admin.
+     */
+    public function isSuperAdmin(): bool
+    {
+        return $this->hasRole('superAdmin');
+    }
+
+    /**
+     * Check if user is an admin.
+     */
+    public function isAdmin(): bool
+    {
+        return $this->hasRole('admin') || $this->isSuperAdmin();
+    }
+
+    /**
+     * Get user's role names.
+     */
+    public function getRoleNames(): array
+    {
+        return $this->roles->pluck('name')->toArray();
+    }
+
+    /**
+     * Get the short URLs for the user.
+     */
+    public function shortUrls()
+    {
+        return $this->hasMany(ShortUrl::class);
     }
 }
